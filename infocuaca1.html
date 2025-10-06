@@ -91,6 +91,30 @@
     <div class="input-group">
     <input type="text" id="lokasiInput" placeholder="Masukkan lokasi">
     <button onclick="getCuaca()">GET</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    function getCuaca() {
+        const lokasi = document.getElementById("lokasiInput").value;
+        const apiKey = "10b97284bb6c42e5bdf11006250610";
+        const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${lokasi}&aqi=no`;
+        const tampilanDiv = document.getElementById("tampilan");
+
+        tampilanDiv.innerHTML = `<p style="text-align:center; color:#95a5a6;">Memuat data cuaca...</p>`;
+
+        $.ajax({
+            url: url,
+            method: "GET",
+            success: function(data) {
+                console.log(data);
+            },
+            error: function() {
+                tampilanDiv.innerHTML = `<p style="color:red; text-align:center;">Lokasi tidak ditemukan</p>`;
+            }
+        });
+    }
+</script>
+
 </div>
 </body>
 </html>
