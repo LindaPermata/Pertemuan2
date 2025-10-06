@@ -106,11 +106,31 @@
             url: url,
             method: "GET",
             success: function(data) {
-                console.log(data);
-            },
-            error: function() {
-                tampilanDiv.innerHTML = `<p style="color:red; text-align:center;">Lokasi tidak ditemukan</p>`;
-            }
+                success: function(data) {
+    const location = data.location;
+    const current = data.current;
+
+    tampilanDiv.innerHTML = `
+        <div class="weather-card">
+            <div class="main-info">
+                <img src="https:${current.condition.icon}" alt="Weather Icon">
+                <div class="temp-info">
+                    <p class="city">${location.name}, ${location.country}</p>
+                    <h3 class="temp">${current.temp_c}°C</h3>
+                </div>
+            </div>
+            <div class="details-grid">
+                <div class="detail-item"><strong>Kondisi</strong><span>${current.condition.text}</span></div>
+                <div class="detail-item"><strong>Kelembapan</strong><span>${current.humidity}%</span></div>
+                <div class="detail-item"><strong>Angin</strong><span>${current.wind_kph} kph</span></div>
+                <div class="detail-item"><strong>Provinsi</strong><span>${location.region}</span></div>
+                <div class="detail-item"><strong>Latitude</strong><span>${location.lat}</span></div>
+                <div class="detail-item"><strong>Longitude</strong><span>${location.lon}</span></div>
+            </div>
+        </div>
+    `;
+}
+
         });
     }
 </script>
